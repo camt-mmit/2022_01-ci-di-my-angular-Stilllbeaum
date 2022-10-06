@@ -21,4 +21,4 @@ jobs:
       - run: |
           git remote set-url origin \
           https://git:${{ github.token }}@github.com/${{ github.repository }}.git 
-      - run: yarn run deplo
+      - run: yarn run deploy
