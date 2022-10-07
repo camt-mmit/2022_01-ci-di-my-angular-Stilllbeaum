@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch  --configuration development",
     "deploy": "ng build --configuration production --base-href=/2022_01-ci-di-my-angular-Stilllbeaum/ && cp ./dist/my-angular/index.html ./dist/my-angular/404.html && gh-pages -d ./dist/my-angular",
-    "test:ci": "ng test --no-watch --no-progress --browser=ChromeHeadlessCI",
+    "test:ci": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
     "lint": "ng lint"
   },
   "private": true,
