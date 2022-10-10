@@ -8,7 +8,7 @@ jobs:
   ci-feature-01:
     runs-on: ubuntu-latest
     env:
-      BEANCH_NAME:  ${{github.ref}}
+      REF_NAME:  ${{github.ref}}
     steps:
     - uses: actions/checkout@v3
       with:
