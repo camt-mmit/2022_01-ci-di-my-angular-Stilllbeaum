@@ -21,7 +21,7 @@ jobs:
         VERSTION="${REF_NAME#refs/heads/b}"
         echo "VERSTION"=${VERSTION}
         echo "BRANCH_NAME=b${VERSTION}" >> $GITHUB_ENV
-        echo "TAG_NAME=${VERSTION}" >> $GITHUB_ENV
+        echo "TAG_NAME=v${VERSTION}" >> $GITHUB_ENV
     - run: npm install -g yarn
     - run: yarn install --frozen-lockfile
     - name: Build project
@@ -36,5 +36,5 @@ jobs:
         git checkout master
         git merge ${{env.BRANCE_NAME}}
         git push origin master
-        git tsg -a ${{env.BRANCE_NAME}} -m "my version ${{env.BRANCE_NAME}}"
+        git tag -a ${{env.BRANCE_NAME}} -m "my version ${{env.BRANCE_NAME}}"
         git push origin master --tags
