@@ -1,0 +1,35 @@
+name: feature-release CI
+run-name: ${{ github.actor }} is integrating feature-01
+on: 
+  push:
+    branchs: 
+      - v*.*.*
+jobs:
+  ci-feature-01:
+    runs-on: ubuntu-latest
+    env:
+      BEANCH_NAME:  ${{github.ref}}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          token: ${{ github.token }}
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - run: |
+          git config --global user.email "${{ github.event.pusher.email }}"
+          git config --global user.name "${{ github.actor }}"
+      - run: npm install -g yarn
+      - run: yarn install --frozen-lockfile
+        name: Build project
+      - run: npx ng build --configuration=production --base-href="/${{ github.event.repository.name }}/"
+        name: Lint project
+      - run: yarn run lint
+        name: Test project
+      - run: yarn run test:ci
+      - name: Merge to main
+        run: |
+          git checkout main
+          git merge ${{env.BRANCE_NAME}}
+          git push origin main
+          git tsg -a ${{env.BRANCE_NAME}} -m "my version ${{env.BRANCE_NAME}}"
