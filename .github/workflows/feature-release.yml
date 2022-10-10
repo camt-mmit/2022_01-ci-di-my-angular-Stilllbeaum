@@ -2,10 +2,10 @@ name: feature-release
 run-name:  ${{github.actor}} is integrating feature-release
 on:
   push:
-    branches: 
+    branche: 
     - b*.*.*
 jobs:
-  ci-features-01:
+  ci-feature-01:
     runs-on: ubuntu-latest
     env: 
       REF_NAME: ${{ github.ref }}
@@ -16,7 +16,7 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: "16"
-    - name: Setup environment variables
+    - name: Setup environment variable
       run: |
            VERSION="${REF_NAME#refs/head/b}"
            echo "VERSION=${VERSION}" >> $GITHUB_ENV
