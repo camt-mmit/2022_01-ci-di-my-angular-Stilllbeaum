@@ -19,9 +19,9 @@ jobs:
     - name: Setup environment veriable
       run: |
         VERSTION="${REF_NAME#refs/heads/b}"
-        echo "VERSTION"=${VERSTION} >> $GITHUB_ENV
-        echo "BRANCH_NAME=b${VERSTION} >> $GITHUB_ENV
-        echo "TAG_NAME=${VERSTION} >> $GITHUB_ENV
+        echo "VERSTION"=${VERSTION}
+        echo "BRANCH_NAME=b${VERSTION}" >> $GITHUB_ENV
+        echo "TAG_NAME=${VERSTION}" >> $GITHUB_ENV
     - run: npm install -g yarn
     - run: yarn install --frozen-lockfile
     - name: Build project
