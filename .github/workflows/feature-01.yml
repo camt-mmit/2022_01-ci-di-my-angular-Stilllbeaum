@@ -19,6 +19,9 @@ jobs:
           git config --global user.name "${{ github.actor }}"
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
+        name: Build project
       - run: npx ng build --configuration=production --base-href="/${{ github.event.repository.name }}/"
+        name: Lint project
       - run: yarn run lint
+        name: Test project
       - run: yarn run test:ci
