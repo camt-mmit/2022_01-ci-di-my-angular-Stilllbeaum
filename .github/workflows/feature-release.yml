@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: "16"
       - name: Setup environment veriable
-      - run: |
+        run: |
           VERSTION="${REF_NAME#  refs/heads/b}"
           echo "VERSTION"=${VERSTION} >> $GITHUB_ENV
           echo "BRANCH_NAME=b${VERSTION} >> $GITHUB_ENV
