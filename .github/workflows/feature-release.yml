@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} is integrating feature-01
 on: 
   push:
     branchs: 
-      - v*.*.*
+      - b*.*.*
 jobs:
   ci-feature-01:
     runs-on: ubuntu-latest
@@ -16,9 +16,12 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
+      - name: Setup environment veriable
       - run: |
-          git config --global user.email "${{ github.event.pusher.email }}"
-          git config --global user.name "${{ github.actor }}"
+          VERSTION="${REF_NAME#  refs/heads/b}"
+          echo "VERSTION"=${VERSTION} >> $GITHUB_ENV
+          echo "BRANCH_NAME=b${VERSTION} >> $GITHUB_ENV
+          echo "TAG_NAME=${VERSTION} >> $GITHUB_ENV
       - run: npm install -g yarn
       - run: yarn install --frozen-lockfile
         name: Build project
@@ -29,7 +32,9 @@ jobs:
       - run: yarn run test:ci
       - name: Merge to main
         run: |
+          git fetch --unshallow
           git checkout main
           git merge ${{env.BRANCE_NAME}}
           git push origin main
           git tsg -a ${{env.BRANCE_NAME}} -m "my version ${{env.BRANCE_NAME}}"
+          git push origin main --tags
