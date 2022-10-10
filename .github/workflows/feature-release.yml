@@ -18,7 +18,7 @@ jobs:
         node-version: "16"
     - name: Setup environment veriable
       run: |
-        VERSTION="${REF_NAME#  refs/heads/b}"
+        VERSTION="${REF_NAME#refs/heads/b}"
         echo "VERSTION"=${VERSTION} >> $GITHUB_ENV
         echo "BRANCH_NAME=b${VERSTION} >> $GITHUB_ENV
         echo "TAG_NAME=${VERSTION} >> $GITHUB_ENV
@@ -33,8 +33,8 @@ jobs:
     - name: Merge to main
       run: |
         git fetch --unshallow
-        git checkout main
+        git checkout master
         git merge ${{env.BRANCE_NAME}}
-        git push origin main
+        git push origin master
         git tsg -a ${{env.BRANCE_NAME}} -m "my version ${{env.BRANCE_NAME}}"
-        git push origin main --tags
+        git push origin master --tags
