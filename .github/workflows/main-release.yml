@@ -1,4 +1,4 @@
-name: Main release CI
+name: Main release 
 run-name: ${{ github.actor }} is integrating feature-01
 on: 
   push:
@@ -8,11 +8,11 @@ jobs:
   ci-feature-01:
     runs-on: ubuntu-latest
     env:
-      BEANCH_NAME:  ${{secrets.RELEASE_MAIN}}
+      BEANCH_NAME:  ${{secrets.RELEASE_TOKEN}}
     steps:
       - uses: actions/checkout@v3
         with:
-          token: ${{ secerts.RELEASE_MAIN }}
+          token: ${{ secerts.RELEASE_TOKEN }}
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
@@ -23,7 +23,7 @@ jobs:
       - name: Release main
         user: action/create-release@v1
         env:
-          GITHUB_TOKEN: ${{secrets.RELEASE_MAIN}}
+          GITHUB_TOKEN: ${{secrets.RELEASE_TOKEN}}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
