@@ -1,5 +1,5 @@
 name: feature-release CI
-run-name: ${{ github.actor }} is integrating feature-01
+run-name: ${{ github.actor }} is integrating feature-release
 on: 
   push:
     branchs: 
