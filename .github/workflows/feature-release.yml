@@ -1,22 +1,22 @@
 name: feature release
-run-name: ${{ github.actor }} is releaseing feature
+run-name: ${{ github.actor }} is releasing feature
 on:
   push:
     branches:
       - b*.*.*
 jobs:
-  ci-feature-01:
+  ci-feature:
     runs-on: ubuntu-latest
     env:
       REF_NAME: ${{ github.ref }}
-    steps: 
+    steps:
       - uses: actions/checkout@v3
         with:
           token: ${{ secrets.PUSH_MAIN }}
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - name: Setupe enviroment variables
+      - name: Setup environment variables
         run: |
           VERSION="${REF_NAME#refs/heads/b}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
@@ -30,17 +30,15 @@ jobs:
         run: npm install -g yarn
       - name: Install dependencies
         run: yarn install --frozen-lockfile
-      - name: Build project
-        run: npx ng build --configuration=production --base-href="/${{ github.event.repository.name }}/"
       - name: Lint project
         run: yarn run lint
       - name: Test project
         run: yarn run test:ci
-      - name: Merge to master
+      - name: Merge to main
         run: |
           git fetch --unshallow
-          git checkout master
+          git checkout main
           git merge ${{ env.BRANCH_NAME }}
-          git push origin master
+          git push --delete origin ${{ env.BRANCH_NAME }}
           git tag -a ${{ env.TAG_NAME }} -m "my version ${{ env.VERSION }}"
-          git push origin master --tags
+          git push origin main --tags
